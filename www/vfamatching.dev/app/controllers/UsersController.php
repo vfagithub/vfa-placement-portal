@@ -297,7 +297,11 @@ class UsersController extends BaseController {
 	    } catch (ValidationFailedException $e) {
 	        return Redirect::back()->with('validation_errors', $e->getErrorMessages())->withInput();
 	    }
-    	return Redirect::route('login')
-			->with('flash_success', 'Your password was successfully updated. Please login below');
+    	if (Auth::login($user)){
+    		return Redirect::route('dashboard')->with('flash_success', 'Your password was successfully updated.');
+    	}
+    	else {
+    		return Redirect::route('login');
+    	}
     }
 }
