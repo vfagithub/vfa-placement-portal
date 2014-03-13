@@ -29,7 +29,7 @@
             	<p>{{ $opportunity->skillsAnswer }}</p>
             </div>
             <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0">
-                <h4><strong><em>What are some ways the Fellow may develop in this role?</em></strong></h4>
+                <h4><strong><em>Which skills will the Fellow develop in this role?</em></strong></h4>
                 <p>{{ $opportunity->developmentAnswer }}</p>
             </div>
         </div>

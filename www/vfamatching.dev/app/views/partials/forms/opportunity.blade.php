@@ -38,7 +38,7 @@ if(!isset($company)){
                 {{ Form::textarea('skillsAnswer', Input::old('skillsAnswer'), array('class'=>'form-control required character-limit', 'character-limit-max'=>280, 'rows'=>5)) }}
             </div>
             <div class="form-group @if($validationErrors){{ $validationErrors->has('developmentAnswer') ? "has-error" : ""}}@endif">
-                {{ Form::label('developmentAnswer', "What are some ways the Fellow may develop in this role?") }}
+                {{ Form::label('developmentAnswer', "Which skills will the Fellow develop in this role?") }}
                 {{ Form::textarea('developmentAnswer', Input::old('developmentAnswer'), array('class'=>'form-control required character-limit', 'character-limit-max'=>280, 'rows'=>5)) }}
             </div>
             <!-- Commented out in lieu of Job Types -->
