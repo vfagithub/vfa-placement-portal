@@ -12,22 +12,24 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
+                <div class="col-sm-3">
                 @if(!empty($fellow->displayPicturePath))                    
-                    <a href="{{ URL::route('fellows.show', array('fellows'=>$fellow->id)) }}"><img src="{{ $fellow->displayPicturePath }}" class="img-responsive" alt="Responsive image" style="margin: 0 auto;"></a>
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <a href="{{ URL::route('fellows.show', array('fellows'=>$fellow->id)) }}"><img src="{{ $fellow->displayPicturePath }}" class="img-responsive fellow-display-pic" alt="Fellow display pic"></a>
+                        </div>
+                    </div>
                 @endif
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" id="fellow-list-bio">
+                <div class="col-sm-9" id="fellow-list-bio">
                     <strong>Bio</strong>: 
                     {{ $fellow->bio }}
+                    <div class="row list-summary">
+                        <div class="col-md-4"><strong>School: </strong>{{ $fellow->school }}</div>
+                        <div class="col-md-4"><strong>Major: </strong>{{ $fellow->degree }} in {{ $fellow->major }}</div>
+                        <div class="col-md-4"><strong>Hometown: </strong>{{ $fellow->hometown }}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="row list-summary">
-                <div class="col-md-4"><strong>School: </strong>{{ $fellow->school }}</div>
-                <div class="col-md-4"><strong>Major: </strong>{{ $fellow->degree }} in {{ $fellow->major }}</div>
-                <div class="col-md-4"><strong>Hometown: </strong>{{ $fellow->hometown }}</div>
             </div>
             @if(Auth::user()->role == "Admin")
             <div class="pull-right admin-controls">
