@@ -5,7 +5,7 @@ class UsersController extends BaseController {
 	public function __construct()
     {
         // Exit if not admin
-        $this->beforeFilter('admin', array('only' => array('index', 'create', 'store')));
+        $this->beforeFilter('admin', array('only' => array('index', 'create', 'store', 'resetPassword')));
     }
 
 	/**
@@ -101,7 +101,6 @@ class UsersController extends BaseController {
 		$user->firstName = Input::get('firstName');
 		$user->lastName = Input::get('lastName');
 		$user->email = Input::get('email');
-		//NOTE: THIS IS A HUGE FUCKING SECURITY FLAW. RANDOMIZE THIS SHIT AND EMAIL IT OUT ONCE EMAIL IS WORKING
 		$user->requiresPasswordReset = true;
 		$user->passwordResetHash = md5(str_random(10));
 		$user->role = Input::get('role');
@@ -302,6 +301,26 @@ class UsersController extends BaseController {
     	}
     	else {
     		return Redirect::route('login');
+    	}
+    }
+
+    public function resetPassword($id)
+    {
+    	if(Auth::user()->role == "Admin"){
+    		//lookup user
+			try{
+	            $user = User::findOrFail($id);
+	        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+	            return View::make('404')->with('error', 'User not found!');
+	        }
+	        $user->requiresPasswordReset = true;
+	        $user->passwordResetHash = md5(str_random(10));
+	        $user->save(array('adminValidation'=>true));
+	        $mailer = new Mailers\UserMailer($user);
+    		$mailer->welcome()->deliver();
+    		return Redirect::back()->with('flash_success', "Password successfully reset. Email with password reset link sent.");
+    	} else {
+    		throw new Exception("Only Admins can reset passwords");
     	}
     }
 }

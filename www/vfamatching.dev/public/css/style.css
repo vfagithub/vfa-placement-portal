@@ -336,6 +336,10 @@ table tr th:hover {
     margin-right: auto;
 }
 
+.admin-controls a {
+    display: inline;
+}
+
 @media (min-width: 992px){ /*Laptop and Desktop*/
     #highlights {
         margin-top: 20px;

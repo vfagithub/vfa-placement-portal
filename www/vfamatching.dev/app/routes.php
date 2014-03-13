@@ -64,6 +64,7 @@ Route::group(array('before' => 'auth'), function()
             Route::get('archive', array('as'=>'archive', 'uses'=>'AdminsController@archive'));
             Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
             Route::get('reports/{type}', array('uses'=>'ReportsController@show'));
+            Route::get('users/{id}/password-reset', array('uses' => 'UsersController@resetPassword'));
         });
     });
 });
