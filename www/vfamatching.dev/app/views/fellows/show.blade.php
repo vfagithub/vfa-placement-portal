@@ -12,7 +12,11 @@
 @section('content')
 <div class="container">
     @if(!empty($fellow->displayPicturePath))
-    	<img src="{{ $fellow->displayPicturePath }}" class="img-responsive" alt="Responsive image">
+    	<div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <img src="{{ $fellow->displayPicturePath }}" class="img-responsive fellow-display-pic" alt="Responsive image">
+            </div>
+        </div>
     @endif
     <div class="row">
         <div class="col-md-12">

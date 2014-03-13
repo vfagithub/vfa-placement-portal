@@ -330,6 +330,12 @@ table tr th:hover {
     cursor: pointer;
 }
 
+.fellow-display-pic {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media (min-width: 992px){ /*Laptop and Desktop*/
     #highlights {
         margin-top: 20px;
