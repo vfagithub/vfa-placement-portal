@@ -220,7 +220,12 @@ class UsersController extends BaseController {
                 ->where('status', '<>', 'Conversation Closed')
                 ->orderBy('created_at', 'DESC')
                 ->get();
-            return View::make('index', array('placementStatuses' => $placementStatuses));
+            $pitches = Auth::user()->profile
+            	->pitches()
+            	->where('status', '<>', 'Approved')
+            	->orderBy('created_at', 'DESC')
+                ->get();
+            return View::make('index', array('placementStatuses' => $placementStatuses, 'pitches' => $pitches));
         } elseif( Auth::user()->role == "Hiring Manager" ) {
             return View::make('index', array(
                 'newPitches' => Pitch::underHiringManagerReview(Auth::user()->profile->company),

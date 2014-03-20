@@ -11,30 +11,34 @@
 	<div class="panel-footer">
 		<div class="row">
 			<div class="col-xs-12">
-			@if($pitch->status != "Waitlisted")
-				<span class="pull-right">
-				{{ Form::open(array('url' => 'pitches/'.$pitch->id.'/waitlist', 'method' => 'PUT', 'class'=>'submittable-form')) }}
-					<button type="button" class="btn btn-danger submittable">
-						Waitlist
-					</button>
-				{{ Form::close() }}
-				</span>
-			@elseif(Auth::user()->role == "Admin")
-				<span class="pull-right">
-				{{ Form::open(array('url' => 'pitches/'.$pitch->id, 'method' => 'DELETE', 'class'=>'submittable-form')) }}
-					<button type="button" class="btn btn-danger submittable">
-						Delete
-					</button>
-				{{ Form::close() }}
-				</span>
-			@endif
-				<span class="pull-right">
-				{{ Form::open(array('url' => 'pitches/'.$pitch->id.'/approve', 'method' => 'PUT', 'class'=>'submittable-form')) }}
-					<button type="button" class="btn btn-success submittable">
-						Approve
-					</button>
-				{{ Form::close() }}
-				</span>
+				@if(Auth::user()->role != "Fellow")
+					@if($pitch->status != "Waitlisted")
+						<span class="pull-right">
+						{{ Form::open(array('url' => 'pitches/'.$pitch->id.'/waitlist', 'method' => 'PUT', 'class'=>'submittable-form')) }}
+							<button type="button" class="btn btn-danger submittable">
+								Waitlist
+							</button>
+						{{ Form::close() }}
+						</span>
+					@elseif(Auth::user()->role == "Admin")
+						<span class="pull-right">
+						{{ Form::open(array('url' => 'pitches/'.$pitch->id, 'method' => 'DELETE', 'class'=>'submittable-form')) }}
+							<button type="button" class="btn btn-danger submittable">
+								Delete
+							</button>
+						{{ Form::close() }}
+						</span>
+					@endif
+					<span class="pull-right">
+					{{ Form::open(array('url' => 'pitches/'.$pitch->id.'/approve', 'method' => 'PUT', 'class'=>'submittable-form')) }}
+						<button type="button" class="btn btn-success submittable">
+							Approve
+						</button>
+					{{ Form::close() }}
+					</span>
+				@else
+					<h3>Status: {{ $pitch->status }}</h3>
+				@endif
 			</div>
 		</div>
 	</div>

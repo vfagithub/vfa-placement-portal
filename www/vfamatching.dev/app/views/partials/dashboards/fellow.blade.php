@@ -8,21 +8,35 @@
             </div>
         </div>
         @if(count($placementStatuses) > 0)
-			<div class="upcoming-events">
-					<h2><small>Upcoming Events</small></h2>
-					<?php $eventCount = 0; ?>
-					@foreach($placementStatuses as $placementStatus)
-						@if($placementStatus->eventDate != "")
-							@include('partials.indexes.upcoming-events', array('placementStatus' => $placementStatus))
-							<?php $eventCount += 1; ?>
-						@endif
-					@endforeach
-					@if($eventCount == 0)
-						<p>Based on your Placement Statuses below, you have no upcoming events.</p>
-					@endif
-			</div>
+            <div class="upcoming-events">
+                    <h2><small>Upcoming Events</small></h2>
+                    <?php $eventCount = 0; ?>
+                    @foreach($placementStatuses as $placementStatus)
+                        @if($placementStatus->eventDate != "")
+                            @include('partials.indexes.upcoming-events', array('placementStatus' => $placementStatus))
+                            <?php $eventCount += 1; ?>
+                        @endif
+                    @endforeach
+                    @if($eventCount == 0)
+                        <p>Based on your Placement Statuses below, you have no upcoming events.</p>
+                    @endif
+            </div>
             @include('partials.components.placementStatuses', array('placementStatuses' => $placementStatuses, 'heading'=>"Your Placement Progress"))
-        @else
+        @endif
+        @if(count($pitches) > 0)
+            <div class="row">
+                <!-- <div class="col-md-9" id="new-pitches"> -->
+                <div class="col-md-12" id="new-pitches">
+                    <h2>Your Pitches 
+                        <small>(<em> {{ count($pitches) }}</em>)</small>
+                    </h2>
+                    @foreach($pitches as $pitch)
+                        @include('partials.indexes.pitch', array('pitch' => $pitch))
+                    @endforeach
+                </div>
+            </div>
+        @endif
+        @if(count($placementStatuses) == 0 && count($pitches) == 0)
             <div class="row">
                 <div class="col-xs-12">
                     <h4>Welcome to the Fellow Dashboard!</h4>
