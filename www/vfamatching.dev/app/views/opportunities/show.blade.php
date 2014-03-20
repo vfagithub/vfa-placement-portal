@@ -94,4 +94,11 @@
             @include('partials.components.placementStatuses', array('placementStatuses' => $opportunity->placementStatuses()->where('isRecent','=',true)->get(), 'heading'=>"Candidate Progress"))
         </div>
     @endif
+
+    <script type="text/javascript">
+        $('.pitch-submit').unbind().click(function(e){
+            $(this).parent().parent().find('.pitch-form').submit();
+            e.preventDefault();//don't follow the actual link
+        });
+    </script>
 @stop
