@@ -98,7 +98,7 @@ class PitchesController extends BaseController {
             try{
                 $pitch = Pitch::findOrFail($id);
                 $pitch->delete();
-            } catch (ValidationFailedException $e) {
+            } catch (Exception $e) {
                 return Redirect::back()->with('flash_error', "There was an error deleting the pitch!");
             }
             return Redirect::back()->with('flash_success', "Pitch waitlisted");
