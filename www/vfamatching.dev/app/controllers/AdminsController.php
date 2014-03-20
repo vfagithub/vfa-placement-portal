@@ -101,7 +101,7 @@ class AdminsController extends BaseController {
 				$sort = (!is_null(Input::get('sort')) ? Input::get('sort') : 'firstName'); //default to fellow first name
 		        $order = (!is_null(Input::get('order')) ? Input::get('order') : 'asc'); //default to asc
 		        $search = (!is_null(Input::get('search')) ? Input::get('search') : ''); //default to empty string
-		        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 5); //default to 5
+		        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 20); //default to 5
 		        $fellows = Fellow::select('fellows.*', 'users.firstName', 'users.lastName')
 		            ->join('users', 'fellows.user_id', '=', 'users.id')
 		            ->leftJoin('fellowSkills', 'fellows.id', '=', 'fellowSkills.fellow_id');
@@ -154,7 +154,7 @@ class AdminsController extends BaseController {
 				$sort = (!is_null(Input::get('sort')) ? Input::get('sort') : 'companies.name'); //default to company name
 		        $order = (!is_null(Input::get('order')) ? Input::get('order') : 'asc'); //default to asc
 		        $search = (!is_null(Input::get('search')) ? Input::get('search') : ''); //default to empty string
-		        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 5); //default to 5
+		        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 20); //default to 5
 		        $opportunities = Opportunity::select('opportunities.*', 'companies.name')
 		            ->join('companies', 'opportunities.company_id', '=', 'companies.id')
 		            ->leftJoin('opportunityTags', 'opportunities.id', '=', 'opportunityTags.opportunity_id');
@@ -200,7 +200,7 @@ class AdminsController extends BaseController {
 				$sort = (!is_null(Input::get('sort')) ? Input::get('sort') : 'name'); //default to name
 		        $order = (!is_null(Input::get('order')) ? Input::get('order') : 'asc'); //default to asc
 		        $search = (!is_null(Input::get('search')) ? Input::get('search') : ''); //default to empty string
-		        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 5); //default to 5
+		        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 20); //default to 5
 		        $companies = Company::select('companies.*');
 		        if($search != ''){
 		            $searchTerms = explode(' ', $search);

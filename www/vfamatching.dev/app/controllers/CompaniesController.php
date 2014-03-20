@@ -19,7 +19,7 @@ class CompaniesController extends BaseController {
         $sort = (!is_null(Input::get('sort')) ? Input::get('sort') : 'name'); //default to name
         $order = (!is_null(Input::get('order')) ? Input::get('order') : 'asc'); //default to asc
         $search = (!is_null(Input::get('search')) ? Input::get('search') : ''); //default to empty string
-        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 5); //default to 5
+        $limit = (!is_null(Input::get('limit')) ? Input::get('limit') : 20); //default to 5
         $companies = Company::select('companies.*');
         if($search != ''){
             $searchTerms = explode(' ', $search);
