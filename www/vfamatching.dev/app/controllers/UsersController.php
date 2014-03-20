@@ -229,7 +229,7 @@ class UsersController extends BaseController {
         } elseif( Auth::user()->role == "Hiring Manager" ) {
             return View::make('index', array(
                 'newPitches' => Pitch::underHiringManagerReview(Auth::user()->profile->company),
-                'opportunities' => Auth::user()->profile->company->opportunities
+                'opportunities' => Auth::user()->profile->company->opportunities()->where('isPublished', '=', true)->get()
                 ));
         } else {
             throw new Exception("Invalid user role");

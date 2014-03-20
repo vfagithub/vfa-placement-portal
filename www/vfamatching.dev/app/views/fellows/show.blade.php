@@ -107,7 +107,6 @@
                 </div>
         @endforeach
     @endforeach
-    {{-- Display fellow's PlacementStatuses with Hiring Manger's opportunities here --}}
     <div class="container">
         <div class="row" id="waitlisted-pitches">
             <div class="col-xs-12 col-md-6">
