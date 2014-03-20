@@ -18,9 +18,17 @@
 						Waitlist
 					</button>
 				{{ Form::close() }}
-			</span>
+				</span>
+			@elseif(Auth::user()->role == "Admin")
+				<span class="pull-right">
+				{{ Form::open(array('url' => 'pitches/'.$pitch->id, 'method' => 'DELETE', 'class'=>'submittable-form')) }}
+					<button type="button" class="btn btn-danger submittable">
+						Delete
+					</button>
+				{{ Form::close() }}
+				</span>
 			@endif
-			<span class="pull-right">
+				<span class="pull-right">
 				{{ Form::open(array('url' => 'pitches/'.$pitch->id.'/approve', 'method' => 'PUT', 'class'=>'submittable-form')) }}
 					<button type="button" class="btn btn-success submittable">
 						Approve

@@ -94,7 +94,17 @@ class PitchesController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		if(Auth::user()->role == "Admin"){
+            try{
+                $pitch = Pitch::findOrFail($id);
+                $pitch->delete();
+            } catch (ValidationFailedException $e) {
+                return Redirect::back()->with('flash_error', "There was an error deleting the pitch!");
+            }
+            return Redirect::back()->with('flash_success', "Pitch waitlisted");
+        } else {
+            return Redirect::back()->with('flash_error', "Only Admins can delete Pitches...");
+        }
 	}
 
 	public function approve($id)
