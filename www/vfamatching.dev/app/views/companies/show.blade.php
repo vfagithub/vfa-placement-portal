@@ -53,7 +53,7 @@
     <div class="secondary">
     	<div class="container">
     		<h3>{{ "$company->name's Opportunities <small>(<em>" . count($company->opportunities) ."</em>)</small>" }}</h3>
-    	    @foreach($company->opportunities as $opportunity)
+    	    @foreach($company->opportunities()->where('isPublished', '=', true)->get() as $opportunity)
                 @include('partials.indexes.opportunity', array('opportunity' => $opportunity))
     	    @endforeach
     	</div>
