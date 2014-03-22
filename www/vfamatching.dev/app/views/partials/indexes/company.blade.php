@@ -5,6 +5,15 @@
         </div>
         <div class="panel-body">
             <div class="row">
+                <div class="col-sm-9">
+                    <h4><strong><em>{{ $company->twitterPitch }}</em></strong></h4>
+                    <div class="row list-summary">
+                        <div class="col-md-3"><strong>City: </strong>{{ $company->city }}</div>
+                        <div class="col-md-3"><strong>Founded: </strong>{{ $company->yearFounded }}</div>
+                        <div class="col-md-3"><strong>Employees: </strong>{{ $company->employees }}</div>
+                        <div class="col-md-3"><strong>Date Added: </strong>{{ Carbon::createFromFormat('Y-m-d H:i:s', $company->created_at)->diffForHumans(); }}</div>
+                    </div>
+                </div>
                 <div class="col-sm-3">
                     @if(!empty($company->logoPath))
                     <div class="row">
@@ -15,15 +24,6 @@
                         </div>
                     </div>
                     @endif
-                </div>
-                <div class="col-sm-9">
-                    <h4><strong><em>{{ $company->twitterPitch }}</em></strong></h4>
-                    <div class="row list-summary">
-                        <div class="col-md-3"><strong>City: </strong>{{ $company->city }}</div>
-                        <div class="col-md-3"><strong>Founded: </strong>{{ $company->yearFounded }}</div>
-                        <div class="col-md-3"><strong>Employees: </strong>{{ $company->employees }}</div>
-                        <div class="col-md-3"><strong>Date Added: </strong>{{ Carbon::createFromFormat('Y-m-d H:i:s', $company->created_at)->diffForHumans(); }}</div>
-                    </div>
                 </div>
             </div>
             @if(Auth::user()->role == "Admin")
