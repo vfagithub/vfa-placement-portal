@@ -66,7 +66,7 @@
     {{ Form::close() }}
 @else
 {{-- Company was not passed in, so send an empty form that stores new company --}}
-
+    <?php throw new Exception("New Company form not implemented."); ?>
 @endif
 
 <script src="{{ URL::to('js/pretty-file-upload.js') }}"></script>

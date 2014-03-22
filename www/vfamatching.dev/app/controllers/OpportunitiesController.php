@@ -165,7 +165,17 @@ class OpportunitiesController extends BaseController {
      */
     public function edit($id)
     {
-        return View::make('opportunities.edit');
+        try{
+            $opportunity = Opportunity::findOrFail($id);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return View::make('404')->with('error', 'Opportunity not found!');
+        }
+        if(Auth::user()->role == "Hiring Manager"){
+            if($opportunity->company->id != Auth::user()->profile->company->id){
+                return Redirect::route('dashboard')->with('flash_error', "You don't have the necessary permissions to do that!");
+            }
+        }
+        return View::make('opportunities.edit', array('opportunity' => $opportunity));
     }
 
     /**
@@ -176,7 +186,7 @@ class OpportunitiesController extends BaseController {
      */
     public function update($id)
     {
-       //
+       die('submitted');
     }
 
     /**
