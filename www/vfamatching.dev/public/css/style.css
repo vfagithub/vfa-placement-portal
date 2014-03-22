@@ -177,7 +177,7 @@ input#limit {
 }
 
 img.img-responsive {
-    margin: 20px;
+    margin: 20px auto;
 }
 
 #notes {
