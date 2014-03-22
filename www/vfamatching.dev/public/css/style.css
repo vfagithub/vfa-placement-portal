@@ -176,6 +176,10 @@ input#limit {
     margin: 50px auto;
 }
 
+.company-logo {
+    padding: 20px;
+}
+
 #notes {
     /*background-color: #04274f;*/
     padding: 20px;

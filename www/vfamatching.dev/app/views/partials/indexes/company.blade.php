@@ -1,26 +1,30 @@
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h3>@include('partials.links.company', array('company' => $company))</h3>
-                    <h4><small><strong><em>{{ $company->twitterPitch }}</em></strong></small></h4>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-md-3 pull-right">
-                    @if(!empty($company->logoPath))
-                        <a href="{{ URL::route('companies.show', array('companies'=>$company->id)) }}">
-                            <img src="{{ $company->logoPath }}" class="img-responsive" alt="Responsive image">
-                        </a>
-                    @endif
-                </div>
-            </div>
+            <h3>@include('partials.links.company', array('company' => $company))</h3>
         </div>
         <div class="panel-body">
-            <div class="row list-summary">
-                <div class="col-md-3"><strong>City: </strong>{{ $company->city }}</div>
-                <div class="col-md-3"><strong>Founded: </strong>{{ $company->yearFounded }}</div>
-                <div class="col-md-3"><strong>Employees: </strong>{{ $company->employees }}</div>
-                <div class="col-md-3"><strong>Date Added: </strong>{{ Carbon::createFromFormat('Y-m-d H:i:s', $company->created_at)->diffForHumans(); }}</div>
+            <div class="row">
+                <div class="col-sm-3">
+                    @if(!empty($company->logoPath))
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0">
+                            <a href="{{ URL::route('companies.show', array('companies'=>$company->id)) }}">
+                                <img src="{{ $company->logoPath }}" class="img-responsive company-logo" alt="Responsive image">
+                            </a>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                <div class="col-sm-9">
+                    <h4><strong><em>{{ $company->twitterPitch }}</em></strong></h4>
+                    <div class="row list-summary">
+                        <div class="col-md-3"><strong>City: </strong>{{ $company->city }}</div>
+                        <div class="col-md-3"><strong>Founded: </strong>{{ $company->yearFounded }}</div>
+                        <div class="col-md-3"><strong>Employees: </strong>{{ $company->employees }}</div>
+                        <div class="col-md-3"><strong>Date Added: </strong>{{ Carbon::createFromFormat('Y-m-d H:i:s', $company->created_at)->diffForHumans(); }}</div>
+                    </div>
+                </div>
             </div>
             @if(Auth::user()->role == "Admin")
                 <div class="pull-right admin-controls">
