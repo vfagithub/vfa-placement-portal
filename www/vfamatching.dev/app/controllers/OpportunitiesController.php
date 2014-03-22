@@ -186,7 +186,44 @@ class OpportunitiesController extends BaseController {
      */
     public function update($id)
     {
-       die('submitted');
+        try{
+            $opportunity = Opportunity::findOrFail($id);
+            if(Auth::user()->role == "Hiring Manager" && Auth::user()->profile->company->id != $opportunity->company->id){
+                return Redirect::route('dashboard')->with('flash_error', "You don't have the necessary permissions to do that!");
+            }
+            $opportunity->isPublished = 1;
+            $opportunity->title = Input::get('title');
+            $opportunity->teaser = Input::get('teaser');
+            $opportunity->city = Input::get('city');
+            $opportunity->description = Input::get('description');
+            $opportunity->responsibilitiesAnswer = Input::get('responsibilitiesAnswer');
+            $opportunity->skillsAnswer = Input::get('skillsAnswer');
+            $opportunity->developmentAnswer = Input::get('developmentAnswer');
+
+            $opportunityTags = array();
+            if (Input::has('jobType')){
+                foreach(Input::get('jobType') as $jobType){
+                    $opportunityTag = new OpportunityTag();
+                    $opportunityTag->tag = $jobType;
+                    array_push($opportunityTags, $opportunityTag);
+                }
+            }
+
+            $opportunity->save();
+            foreach($opportunity->opportunityTags as $opportunityTag){
+                $opportunityTag->delete();
+            }
+            foreach($opportunityTags as $opportunityTag){
+                $opportunityTag->opportunity_id = $opportunity->id;
+                $opportunityTag->save();
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return View::make('404')->with('error', 'Opportunity not found!');
+        } catch (ValidationFailedException $e) {
+            return Redirect::back()->with('validation_errors', $e->getErrorMessages())->withInput();
+        }
+
+        return Redirect::route('opportunities.show', $opportunity->id)->with('flash_success', 'Opportunity successfully updated.');
     }
 
     /**
