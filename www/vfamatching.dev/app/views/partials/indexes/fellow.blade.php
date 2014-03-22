@@ -4,7 +4,6 @@
             <h3><strong><a href="{{ URL::route('fellows.show', array('fellows'=>$fellow->id)) }}">{{ $fellow->firstName . ' ' . $fellow->lastName }}</a></strong></h3>
         </div>
         <div class="panel-body">
-            @include('partials.components.skills', array('skills' => $fellow->fellowSkills))
             <div class="row">
                 <div class="col-sm-3">
                 @if(!empty($fellow->displayPicturePath))                    
@@ -16,6 +15,7 @@
                 @endif
                 </div>
                 <div class="col-sm-9" id="fellow-list-bio">
+                    @include('partials.components.skills', array('skills' => $fellow->fellowSkills))
                     <strong>Bio</strong>: 
                     {{ $fellow->bio }}
                     <div class="row list-summary">
