@@ -3,6 +3,13 @@
 @section('header')
     {{ $opportunity->title }}
     <small><em><a href="{{ URL::to('/companies/' . $opportunity->company->id) }}">{{ $opportunity->company->name }},</a> {{ $opportunity->city }}</em></small>
+    @if(Auth::user()->role == "Hiring Manager")
+        @if(Auth::user()->profile->company->id == $opportunity->company->id)
+            <span class="pull-right">
+                <small><em><a href="{{ URL::route('opportunities.edit', $opportunity->id) }}"><i class="fa fa-pencil-square-o"></i>Edit this Opportunity</a></em></small>
+            </span>
+        @endif
+    @endif
 @stop
 
 @section('content')
