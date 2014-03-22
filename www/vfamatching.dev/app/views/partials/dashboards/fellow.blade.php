@@ -57,18 +57,18 @@
         <!-- New Opportunities -->
         <div class="row">
             <h2>Newest Opportunities</h2>
-                @foreach(Opportunity::orderBy("created_at", "DESC")->take(5)->get() as $opportunity)
-                    @include('partials.indexes.opportunity', array('opportunity' => $opportunity))
-                @endforeach
-                <p class="pull-right"><a href="/opportunities" class="btn btn-primary">View All Opportunities</a></p>
+            @foreach(Opportunity::where('isPublished','=',true)->orderBy("created_at", "DESC")->take(5)->get() as $opportunity)
+                @include('partials.indexes.opportunity', array('opportunity' => $opportunity))
+            @endforeach
+            <p class="pull-right"><a href="/opportunities" class="btn btn-primary">View All Opportunities</a></p>
         </div>
         <!-- New Companies -->
         <div class="row">
             <h2>Newest Companies</h2>
-                @foreach(Company::orderBy("created_at", "DESC")->take(5)->get() as $company)
-                    @include('partials.indexes.company', array('company' => $company))
-                @endforeach
-                <p class="pull-right"><a href="/companies" class="btn btn-primary">View All Companies</a></p>
+            @foreach(Company::where('isPublished','=',true)->orderBy("created_at", "DESC")->take(5)->get() as $company)
+                @include('partials.indexes.company', array('company' => $company))
+            @endforeach
+            <p class="pull-right"><a href="/companies" class="btn btn-primary">View All Companies</a></p>
         </div>
     </div><!-- End Container -->
 </div><!-- End fellow dashboard -->

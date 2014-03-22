@@ -17,4 +17,12 @@
         </div>
     </div>
     @include('partials.components.pitches', array('pitches' => $newPitches))
+    <!-- New Opportunities -->
+    <div class="row">
+        <h2>Newest Opportunities</h2>
+        @foreach(Opportunity::where('isPublished','=',true)->orderBy("created_at", "DESC")->take(5)->get() as $opportunity)
+            @include('partials.indexes.opportunity', array('opportunity' => $opportunity))
+        @endforeach
+        <p class="pull-right"><a href="/opportunities" class="btn btn-primary">View All Opportunities</a></p>
+    </div>
 </div>
