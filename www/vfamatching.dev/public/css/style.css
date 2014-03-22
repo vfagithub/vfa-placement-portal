@@ -176,8 +176,8 @@ input#limit {
     margin: 50px auto;
 }
 
-.company-logo {
-    padding: 20px;
+img.img-responsive {
+    margin: 20px;
 }
 
 #notes {
