@@ -1,16 +1,10 @@
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="row">
-                <div class="col-md-4">
-                    <h3><strong><a href="{{ URL::route('fellows.show', array('fellows'=>$fellow->id)) }}">{{ $fellow->firstName . ' ' . $fellow->lastName }}</a></strong></h3>
-                </div>
-                <div class="col-md-8">
-                    @include('partials.components.skills', array('skills' => $fellow->fellowSkills))
-                </div>
-            </div>
+            <h3><strong><a href="{{ URL::route('fellows.show', array('fellows'=>$fellow->id)) }}">{{ $fellow->firstName . ' ' . $fellow->lastName }}</a></strong></h3>
         </div>
         <div class="panel-body">
+            @include('partials.components.skills', array('skills' => $fellow->fellowSkills))
             <div class="row">
                 <div class="col-sm-3">
                 @if(!empty($fellow->displayPicturePath))                    
