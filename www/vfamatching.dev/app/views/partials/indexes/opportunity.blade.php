@@ -1,17 +1,11 @@
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="row">
-                <div class="col-md-7">
-                    <h3>@include('partials.links.opportunity', array('opportunity' => $opportunity))</h3>
-                    <h4><small><strong><em>{{ $opportunity->teaser }}</em></strong></small></h4>
-                </div>
-                <div class="col-md-5">
-                    @include('partials.components.tags', array('tags' => $opportunity->opportunityTags))
-                </div>
-            </div>
+            <h3>@include('partials.links.opportunity', array('opportunity' => $opportunity))</h3>
         </div>
         <div class="panel-body">
+            <h4><strong><em>{{ $opportunity->teaser }}</em></strong></h4>
+            @include('partials.components.tags', array('tags' => $opportunity->opportunityTags))
             <div class="row list-summary">
                 <div class="col-md-3"><h4>@include('partials.links.company', array('company' => $opportunity->company))</h4></div>
                 <div class="col-md-3"><strong>City: </strong>{{ $opportunity->city }}</div>
