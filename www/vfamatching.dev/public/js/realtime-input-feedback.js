@@ -49,7 +49,7 @@ $(document).ready(function() {
             }
             //Maximum character limit
             if(input.attr('character-limit-max') != undefined){
-                if(input.val().length > input.attr('character-limit-max')){
+                if(input.val().replace(/(\r\n|\n|\r)/gm,"1234").length > input.attr('character-limit-max')){
                     input.parent().removeClass('has-success');
                     input.parent().addClass('has-error');    
                 }

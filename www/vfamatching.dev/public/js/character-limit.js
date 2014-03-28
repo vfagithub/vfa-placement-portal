@@ -40,6 +40,6 @@ $(document).ready(function() {
         }
     });
     function calculateCharactersLeft(input){
-        return input.attr('character-limit-max') - input.val().length;
+        return input.attr('character-limit-max') - input.val().replace(/(\r\n|\n|\r)/gm,"1234").length;
     }
 });
