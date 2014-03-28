@@ -29,6 +29,11 @@ class PlacementStatusesController extends BaseController {
 	 */
 	public function store()
 	{
+		if(Input::get('score') == ""){
+			//Edge case that Laravel model validation doesn't catch
+			return Redirect::back()->with('flash_error', 'You must select a feedback score to update your placement progress!');
+		}
+
         $oldPlacementStatuses = PlacementStatus::where('fellow_id','=',Input::get('fellow_id'))
                     ->where('opportunity_id','=',Input::get('opportunity_id'))
                     ->get();
