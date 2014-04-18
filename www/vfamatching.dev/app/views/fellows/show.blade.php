@@ -78,16 +78,26 @@
     {{-- Display a Admin waitlisted pitches to admins --}}
     @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->count())
     <div class="container">
-        <div class="row" id="waitlisted-pitches">
-            <div class="col-xs-12">
-                @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->count())
+        @if(Pitch::where("fellow_id","=",$fellow->id)->where('status','=','Under Review')->count())
+            <div class="row" id="pending-pitches">
+                <div class="col-xs-12">
+                    <h3>Pending Pitches:</h3>
+                    @foreach(Pitch::where("fellow_id","=",$fellow->id)->where('status','=','Under Review')->get() as $pitch)
+                        @include('partials.indexes.pitch', array('pitch' => $pitch))
+                    @endforeach
+                </div>
+            </div>
+        @endif
+        @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->count())
+            <div class="row" id="waitlisted-pitches">
+                <div class="col-xs-12">
                     <h3>Waitlisted Pitches:</h3>
                     @foreach(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->get() as $pitch)
                         @include('partials.indexes.pitch', array('pitch' => $pitch))
                     @endforeach
-                @endif
+                </div>
             </div>
-        </div>
+        @endif
     </div>
     @endif
     <?php $count = 0; ?>
@@ -102,7 +112,7 @@
                 <div class="container">
                     <div class="row" id="waitlisted-pitches">
                         <div class="col-xs-12">
-                            <h3>Waitlisted Pitch for {{ $opportunity->title }}:</h3>
+                            <h3>Waitlisted Pitches for {{ $opportunity->title }}:</h3>
                                 @include('partials.indexes.pitch', array('pitch' => $pitch))
                         </div>
                     </div>
