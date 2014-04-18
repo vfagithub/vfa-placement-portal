@@ -80,10 +80,12 @@
     <div class="container">
         <div class="row" id="waitlisted-pitches">
             <div class="col-xs-12">
-                <h3>Waitlisted Pitches:</h3>
-                @foreach(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->get() as $pitch)
-                    @include('partials.indexes.pitch', array('pitch' => $pitch))
-                @endforeach
+                @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->count())
+                    <h3>Waitlisted Pitches:</h3>
+                    @foreach(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->get() as $pitch)
+                        @include('partials.indexes.pitch', array('pitch' => $pitch))
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
