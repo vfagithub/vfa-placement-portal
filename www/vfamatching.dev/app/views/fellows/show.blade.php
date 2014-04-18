@@ -76,18 +76,19 @@
         </div>
     </div>
     {{-- Display a Admin waitlisted pitches to admins --}}
-    @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->count())
     <div class="container">
-        @if(Pitch::where("fellow_id","=",$fellow->id)->where('status','=','Under Review')->count())
+        {{-- Pending Admin approval --}}
+        @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where('status','=','Under Review')->count())
             <div class="row" id="pending-pitches">
                 <div class="col-xs-12">
-                    <h3>Pending Pitches:</h3>
-                    @foreach(Pitch::where("fellow_id","=",$fellow->id)->where('status','=','Under Review')->get() as $pitch)
+                    <h3>Pitches pending Admin approval:</h3>
+                    @foreach(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where('status','=','Under Review')->get() as $pitch)
                         @include('partials.indexes.pitch', array('pitch' => $pitch))
                     @endforeach
                 </div>
             </div>
         @endif
+        {{-- Waitlisted by Admin --}}
         @if(Pitch::where("fellow_id","=",$fellow->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->count())
             <div class="row" id="waitlisted-pitches">
                 <div class="col-xs-12">
@@ -98,8 +99,18 @@
                 </div>
             </div>
         @endif
+        {{-- Pending Company approval --}}
+        @if(Pitch::where("fellow_id","=",$fellow->id)->where('status','=','Under Review')->where("hasAdminApproval","=",true)->count())
+            <div class="row" id="pending-pitches">
+                <div class="col-xs-12">
+                    <h3>Pitches pending Company approval:</h3>
+                    @foreach(Pitch::where("fellow_id","=",$fellow->id)->where('status','=','Under Review')->where("hasAdminApproval","=",true)->get() as $pitch)
+                        @include('partials.indexes.pitch', array('pitch' => $pitch))
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
-    @endif
     <?php $count = 0; ?>
     <div class="container">
         @include('partials.components.placementStatuses', array('placementStatuses' => $fellow->placementStatuses()->where('isRecent','=',true)->get(), 'heading'=>"Fellow's Placement Progress"))

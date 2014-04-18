@@ -1,4 +1,5 @@
 {{-- Requires $placementStatuses --}}
+@if(count($placementStatuses))
 <div class="placementStatuses">
     <h2><small>{{ $heading }}</small></h2>
     <div class="row">
@@ -14,3 +15,4 @@
     @endforeach
     </div>
 </div>
+@endif

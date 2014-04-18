@@ -65,8 +65,20 @@
             </div>
         </div>
         {{-- Display a Admin waitlisted pitches to admins --}}
-        @if(Pitch::where("opportunity_id","=",$opportunity->id)->where("hasAdminApproval","=",false)->count())
         <div class="container">
+            {{-- Pending Admin approval --}}
+            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')->where("hasAdminApproval","=",false)->count())
+                <div class="row" id="pending-pitches">
+                    <div class="col-xs-12">
+                        <h3>Pitches pending Admin approval:</h3>
+                        @foreach(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')->where("hasAdminApproval","=",false)->get() as $pitch)
+                            @include('partials.indexes.pitch', array('pitch' => $pitch))
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+            {{-- Waitlisted by Admin --}}
+            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where("hasAdminApproval","=",false)->where("status","=","Waitlisted")->count())
             <div class="row" id="waitlisted-pitches">
                 <div class="col-xs-12">
                     <h3>Waitlisted Pitches:</h3>
@@ -75,8 +87,19 @@
                     @endforeach
                 </div>
             </div>
+            @endif
+            {{-- Pending Company approval --}}
+            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')->where("hasAdminApproval","=",true)->count())
+                <div class="row" id="pending-pitches">
+                    <div class="col-xs-12">
+                        <h3>Pitches pending Company approval:</h3>
+                        @foreach(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')->where("hasAdminApproval","=",true)->get() as $pitch)
+                            @include('partials.indexes.pitch', array('pitch' => $pitch))
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
-        @endif
         <div class="container">
             @include('partials.components.placementStatuses', array('placementStatuses' => $opportunity->placementStatuses()->where('isRecent','=',true)->get(), 'heading'=>"Candidate Progress"))
         </div>
@@ -86,16 +109,24 @@
         {{-- @include('partials.components.fellowNotes', array('fellowNotes' => $opportunity->fellowNotes, 'entityType' => "Opportunity", 'entityId' => $opportunity->id)) --}}
     @elseif(Auth::user()->role == "Hiring Manager")
         {{-- Display company waitlisted pitches to hiring managers --}}
-        @foreach(Pitch::where('opportunity_id','=',$opportunity->id)->where("hasAdminApproval","=",true)->where('status','<>', 'Approved')->get() as $pitch)
-                <div class="container">
-                    <div class="row" id="waitlisted-pitches">
-                        <div class="col-xs-12">
-                            <h3>Waitlisted Pitches for this Opportunity</h3>
-                            @include('partials.indexes.pitch', array('pitch' => $pitch))
-                        </div>
+        <div class="container">
+            @foreach(Pitch::where('opportunity_id','=',$opportunity->id)->where("hasAdminApproval","=",true)->where('status','=', 'Under Review')->get() as $pitch)
+                <div class="row" id="pending-pitches">
+                    <div class="col-xs-12">
+                        <h3>Pending Pitches for this Opportunity</h3>
+                        @include('partials.indexes.pitch', array('pitch' => $pitch))
                     </div>
                 </div>
-        @endforeach
+            @endforeach
+            @foreach(Pitch::where('opportunity_id','=',$opportunity->id)->where("hasAdminApproval","=",true)->where('status','=', 'Waitlisted')->get() as $pitch)
+                <div class="row" id="waitlisted-pitches">
+                    <div class="col-xs-12">
+                        <h3>Waitlisted Pitches for this Opportunity</h3>
+                        @include('partials.indexes.pitch', array('pitch' => $pitch))
+                    </div>
+                </div>
+            @endforeach
+        </div>
         {{-- Display Placement Progress for this opportunity --}}
         <div class="container">
             @include('partials.components.placementStatuses', array('placementStatuses' => $opportunity->placementStatuses()->where('isRecent','=',true)->get(), 'heading'=>"Candidate Progress"))
