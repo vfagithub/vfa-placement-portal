@@ -28,6 +28,7 @@
               <li><a href="{{ URL::to('/fellows/' . Auth::user()->profile->id) }}"><i class="fa fa-user"></i> {{ Auth::user()->firstName }}</a></li>
               <li><a href="{{ URL::to('/opportunities') }}"><i class="fa fa-briefcase"></i> Opportunities</a></li>
               <li><a href="{{ URL::to('/companies') }}"><i class="fa fa-building-o"></i> Companies</a></li>
+              <li><a href="{{ URL::to('reports/companies') }}"><i class="fa fa-tachometer"></i> Status</a></li>
             @elseif( Auth::user()->role == "Hiring Manager" )
               @if(Auth::user()->profile->isProfileComplete() && Auth::user()->profile->company->isProfileComplete() && Auth::user()->profile->company->hasPublishedOpportunities())
                 <li class=""><a href="{{ URL::to('/') }}"><i class="fa fa-home"></i> Dashboard</a></li>
@@ -35,6 +36,7 @@
                 <li><a href="{{ URL::route('opportunities.index') }}"><i class="fa fa-briefcase"></i> Opportunities</a></li>
                 <li><a href="{{ URL::to('/companies/' . Auth::user()->profile->company->id) }}"><i class="fa fa-building-o"></i> {{ Auth::user()->profile->company->name }}</a></li>
                 <li><a href="{{ URL::to('/hiringmanagers/' . Auth::user()->profile->id . '/edit') }}"><i class="fa fa-user"></i> {{ Auth::user()->firstName }}</a></li>
+                <li><a href="{{ URL::to('reports/fellows') }}"><i class="fa fa-tachometer"></i> Status</a></li>
               @endif
             @else
               <!-- We've got problems -->
