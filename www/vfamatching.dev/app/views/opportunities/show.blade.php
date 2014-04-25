@@ -53,6 +53,20 @@
         <div class="container">
             <div class="row">
             @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
+                <h2>Feedback from Fellows</h2>
+                <div class="col-xs-12 comment well">
+                    <span>
+                        <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
+                        <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
+                    </span>
+                    <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
+                    <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+                </div>
+            @endforeach
+            </div>
+            <div class="row">
+            @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
+                <h2>Feedback on Fellows</h2>
                 <div class="col-xs-12 comment well">
                     <span>
                         <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
