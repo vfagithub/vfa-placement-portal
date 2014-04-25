@@ -42,14 +42,23 @@ class ReportsController extends BaseController {
 	{
 		switch ($type) {
 		    case "fellows":		    	
+	        	if(Auth::user()->role == "Fellow"){
+	        		return View::make('404')->with('error', 'Insufficient privileges! Fellows aren\'t allowed to view the fellows report.');
+	        	}
 		    	$data = Fellow::generateReportData();		    	
 		        return View::make('reports.show')->with('heading', 'Unplaced Fellows Report')->with('data', $data);
 		        break;
 		    case "companies":
+	        	if(Auth::user()->role == "Hiring Manager"){
+	        		return View::make('404')->with('error', 'Insufficient privileges! Hiring Managers aren\'t allowed to view the companies report.');
+	        	}
 	        	$data = Company::generateReportData();		    	
 	            return View::make('reports.show')->with('heading', 'Unfilled Opportunities Report')->with('data', $data)->with('sort',json_encode([[0,0],[1,0]]));
 		        break;
 		    case "placementStatuses":
+		    	if(Auth::user()->role != "Admin"){
+		    		return View::make('404')->with('error', 'Insufficient privileges! Admins only.');
+		    	}
 		    	$limit = Input::has('limit') ? Input::get('limit') : 5;
 	        	$data = PlacementStatus::generateReportData($limit);		    	
 	            return View::make('reports.show')->with('heading', 'Recent Placement Updates Report')->with('data', $data)->with('sort',json_encode([[4,1]]))->with('limit',$limit);

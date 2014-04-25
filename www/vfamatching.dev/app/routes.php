@@ -54,6 +54,7 @@ Route::group(array('before' => 'auth'), function()
         Route::put('opportunities/{id}/unpublish', 'OpportunitiesController@unpublish');
         Route::put('pitches/{id}/approve', 'PitchesController@approve');
         Route::put('pitches/{id}/waitlist', 'PitchesController@waitlist');
+        Route::get('reports/{type}', array('uses'=>'ReportsController@show'));
         Route::group(array('before' => 'admin'), function() /* Requires the user to be an admin */
         {
             Route::get('users/{id}/backdoor', array('uses' => 'UsersController@backdoor'));
@@ -63,7 +64,6 @@ Route::group(array('before' => 'auth'), function()
             Route::put('companies/{id}/unpublish', 'CompaniesController@unpublish');
             Route::get('archive', array('as'=>'archive', 'uses'=>'AdminsController@archive'));
             Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
-            Route::get('reports/{type}', array('uses'=>'ReportsController@show'));
             Route::get('users/{id}/password-reset', array('uses' => 'UsersController@resetPassword'));
         });
     });
