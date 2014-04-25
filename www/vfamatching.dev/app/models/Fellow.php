@@ -144,8 +144,12 @@ class Fellow extends BaseModel {
     }
 
     public static function generateReportData()
-    {
-        $columnHeadings = array_merge(array('Fellow', 'Average Feedback', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
+    {        
+        if(Auth::user()->role == "Admin"){
+            $columnHeadings = array_merge(array('Fellow', 'Average Feedback', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
+        } else {
+            $columnHeadings = array_merge(array('Fellow', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
+        }
         $data = array();
         $data[0] = $columnHeadings;
 
@@ -156,7 +160,7 @@ class Fellow extends BaseModel {
             foreach($columnHeadings as $key => $value){
                 if($value == "Fellow"){
                     $data[$count][0] = '<a href="' . URL::to('fellows/' . $fellow->id) . '">' . $fellow->user->firstName . ' ' . $fellow->user->lastName . '</a>';
-                } elseif($value == "Average Feedback"){
+                } elseif($value == "Average Feedback" && Auth::user()->role == "Admin"){
                     $data[$count][1] = $fellow->averagePlacementStatusFeedbackScore();
                 } else {
                     $data[$count][$key] = 0;
