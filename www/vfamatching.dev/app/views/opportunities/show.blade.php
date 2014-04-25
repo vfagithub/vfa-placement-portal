@@ -52,8 +52,8 @@
         {{-- Display feedback commentary --}}
         <div class="container">
             <div class="row">
+            <h2>Feedback from Fellows</h2>
             @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-                <h2>Feedback from Fellows</h2>
                 <div class="col-xs-12 comment well">
                     <span>
                         <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
@@ -65,8 +65,8 @@
             @endforeach
             </div>
             <div class="row">
+            <h2>Feedback on Fellows</h2>
             @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-                <h2>Feedback on Fellows</h2>
                 <div class="col-xs-12 comment well">
                     <span>
                         <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>

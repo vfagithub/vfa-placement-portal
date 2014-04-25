@@ -63,8 +63,8 @@
     {{-- Display feedback commentary --}}
     <div class="container">
         <div class="row">
+        <h2>Feedback on Fellow</h2>
         @foreach($fellow->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-            <h2>Feedback on Fellow</h2>
             <div class="col-xs-12 comment well">
                 <span>
                     <strong><i class="fa fa-comments-o"></i> @include('partials.links.opportunity', array('opportunity'=>  $placementStatus->opportunity))</strong>
@@ -76,8 +76,8 @@
         @endforeach
         </div>
         <div class="row">
+        <h2>Feedback from Fellow</h2>
         @foreach($fellow->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-            <h2>Feedback from Fellow</h2>
             <div class="col-xs-12 comment well">
                 <span>
                     <strong><i class="fa fa-comments-o"></i> @include('partials.links.opportunity', array('opportunity'=>  $placementStatus->opportunity))</strong>
