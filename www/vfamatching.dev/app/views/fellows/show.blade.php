@@ -62,32 +62,36 @@
     </div>
     {{-- Display feedback commentary --}}
     <div class="container">
-        <div class="row">
-        <h2>Feedback on Fellow</h2>
-        @foreach($fellow->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-            <div class="col-xs-12 comment well">
-                <span>
-                    <strong><i class="fa fa-comments-o"></i> @include('partials.links.opportunity', array('opportunity'=>  $placementStatus->opportunity))</strong>
-                    <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
-                </span>
-                <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
-                <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+        @if($fellow->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->count())
+            <div class="row">
+            <h2>Feedback on Fellow</h2>
+            @foreach($fellow->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->get() as $placementStatus)
+                <div class="col-xs-12 comment well">
+                    <span>
+                        <strong><i class="fa fa-comments-o"></i> @include('partials.links.opportunity', array('opportunity'=>  $placementStatus->opportunity))</strong>
+                        <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
+                    </span>
+                    <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
+                    <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+                </div>
+            @endforeach
             </div>
-        @endforeach
-        </div>
-        <div class="row">
-        <h2>Feedback from Fellow</h2>
-        @foreach($fellow->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-            <div class="col-xs-12 comment well">
-                <span>
-                    <strong><i class="fa fa-comments-o"></i> @include('partials.links.opportunity', array('opportunity'=>  $placementStatus->opportunity))</strong>
-                    <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
-                </span>
-                <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
-                <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+        @endif
+        @if($fellow->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->count())
+            <div class="row">
+            <h2>Feedback from Fellow</h2>
+            @foreach($fellow->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
+                <div class="col-xs-12 comment well">
+                    <span>
+                        <strong><i class="fa fa-comments-o"></i> @include('partials.links.opportunity', array('opportunity'=>  $placementStatus->opportunity))</strong>
+                        <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
+                    </span>
+                    <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
+                    <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+                </div>
+            @endforeach
             </div>
-        @endforeach
-        </div>
+        @endif
     </div>
     {{-- Display a Admin waitlisted pitches to admins --}}
     <div class="container">

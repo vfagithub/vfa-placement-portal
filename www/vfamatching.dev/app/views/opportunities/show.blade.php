@@ -51,32 +51,35 @@
         </div>
         {{-- Display feedback commentary --}}
         <div class="container">
-            <div class="row">
-            <h2>Feedback from Fellows</h2>
-            @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-                <div class="col-xs-12 comment well">
-                    <span>
-                        <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
-                        <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
-                    </span>
-                    <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
-                    <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+            @if($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->count())
+                <div class="row">
+                <h2>Feedback from Fellows</h2>
+                @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
+                    <div class="col-xs-12 comment well">
+                        <span>
+                            <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
+                            <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
+                        </span>
+                        <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
+                        <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+                    </div>
+                @endforeach
                 </div>
-            @endforeach
-            </div>
-            <div class="row">
-            <h2>Feedback on Fellows</h2>
-            @foreach($opportunity->placementStatuses()->where('fromRole', 'Fellow')->orderBy('created_at', 'DESC')->get() as $placementStatus)
-                <div class="col-xs-12 comment well">
-                    <span>
-                        <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
-                        <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
-                    </span>
-                    <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
-                    <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+            @if($opportunity->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->count())
+                <div class="row">
+                <h2>Feedback on Fellows</h2>
+                @foreach($opportunity->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->get() as $placementStatus)
+                    <div class="col-xs-12 comment well">
+                        <span>
+                            <strong><i class="fa fa-comments-o"></i> <a href="{{ URL::to('fellows/' . $placementStatus->fellow->id)}}">{{ $placementStatus->fellow->user->firstName . " " . $placementStatus->fellow->user->lastName}}</a></strong>
+                            <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', $placementStatus->created_at)->diffForHumans() }}</em>
+                        </span>
+                        <p>{{ Parser::linkUrlsInText($placementStatus->message) }}</p>
+                        <p><strong>Feedback Score: {{ $placementStatus->score }}</strong></p>
+                    </div>
+                @endforeach
                 </div>
-            @endforeach
-            </div>
+            @endif
         </div>
         {{-- Display a Admin waitlisted pitches to admins --}}
         <div class="container">
