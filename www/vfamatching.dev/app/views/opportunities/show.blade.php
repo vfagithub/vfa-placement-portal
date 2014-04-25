@@ -65,6 +65,7 @@
                     </div>
                 @endforeach
                 </div>
+            @endif
             @if($opportunity->placementStatuses()->where('fromRole', 'Hiring Manager')->orderBy('created_at', 'DESC')->count())
                 <div class="row">
                 <h2>Feedback on Fellows</h2>
