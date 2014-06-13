@@ -147,8 +147,7 @@ class PlacementStatus extends BaseModel {
 
     public static function generateReportData($limit)
     {
-    	// NEW CODE: TWO NEW COLUMNS: WHO CREATED AND FEEDBACK. 
-        $columnHeadings = array('Fellow', 'Who Created', 'Opportunity', 'Company', 'Status', 'Feedback', 'Created');
+        $columnHeadings = array('Fellow', 'Opportunity', 'Company', 'Status', 'Created');
         $data = array();
         $data[0] = $columnHeadings;
 
@@ -160,40 +159,17 @@ class PlacementStatus extends BaseModel {
             $fellow = $placementStatus->fellow;
             $opportunity = $placementStatus->opportunity;
             $company = $placementStatus->opportunity->company;
-            
-            // NEW CODE: ROLE AND FEEDBACK SCORE
-            
-            // not sure if $placementStatus->role is valid
-            $role = $placementStatus->role; 
-            $score = $placementStatus->score;
-                        
             foreach($columnHeadings as $key => $value){
                 if($value == "Fellow"){
                     $data[$count][0] = '<a href="' . URL::to('fellows/' . $fellow->id) . '">' . $fellow->user->firstName . ' ' . $fellow->user->lastName . '</a>';
-
-                // NEW CODE: WHO CREATED
-                
-                } else if($value == "Who Created"){
-                	$data[$count][1] = $role;                
-                
-                // END NEW CODE
-                
                 } elseif($value == "Opportunity"){
-                    $data[$count][2] = '<a href="' . URL::to('opportunities/' . $opportunity->id) . '">' . $opportunity->title . '</a>';
+                    $data[$count][1] = '<a href="' . URL::to('opportunities/' . $opportunity->id) . '">' . $opportunity->title . '</a>';
                 } elseif($value == "Company"){
-                    $data[$count][3] = '<a href="' . URL::to('companies/' . $company->id) . '">' . $company->name . '</a>';
+                    $data[$count][2] = '<a href="' . URL::to('companies/' . $company->id) . '">' . $company->name . '</a>';
                 } elseif($value == "Status"){
-                    $data[$count][4] = $placementStatus->status;
-                    
-                // NEW CODE: FEEDBACK
-                
-                } else if($value == "Feedback"){
-                	$data[$count][5] = $score;
-                	
-                // END NEW CODE
-                    
+                    $data[$count][3] = $placementStatus->status;
                 } elseif($value == "Created"){
-                    $data[$count][6] = $placementStatus->created_at;
+                    $data[$count][4] = $placementStatus->created_at;
                 }               
             }
             $count += 1;

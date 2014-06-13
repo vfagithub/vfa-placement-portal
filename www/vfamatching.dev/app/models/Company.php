@@ -124,9 +124,9 @@ class Company extends BaseModel {
     public static function generateReportData()
     {
         if(Auth::user()->role == "Admin"){
-            $columnHeadings = array_merge(array('Company', 'City', 'Opportunity', 'Average Feedback', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
+            $columnHeadings = array_merge(array('Company', 'Opportunity', 'Average Feedback', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
         } else {
-            $columnHeadings = array_merge(array('Company', 'City', 'Opportunity', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
+            $columnHeadings = array_merge(array('Company', 'Opportunity', 'Pitch:Under Review', 'Pitch:Waitlisted', 'Pitch:Approved'), PlacementStatus::statuses());
         }
         $data = array();
         $data[0] = $columnHeadings;
@@ -139,21 +139,10 @@ class Company extends BaseModel {
                 foreach($columnHeadings as $key => $value){
                     if($value == "Company"){
                         $data[$count][0] = '<a href="' . URL::to('companies/' . $company->id) . '">' . $company->name . '</a>';
-                    
-                    // NEW CODE: ADDING CITY COLUMN
-                    
-                    } else if($value == "City"){
-                        // a few companies added lengthy descriptions in city titles
-                        // keeping char count in city to 12 for table
-                        $city_mod = substr($company->city, 0, 12);
-                    	$data[$count][1] = $city_mod;
-                    	
-                    // END OF NEW CODE
-                    
                     } else if($value == "Opportunity"){
-                        $data[$count][2] = '<a href="' . URL::to('opportunities/' . $opportunity->id) . '">' . $opportunity->title . '</a>';
+                        $data[$count][1] = '<a href="' . URL::to('opportunities/' . $opportunity->id) . '">' . $opportunity->title . '</a>';
                     } else if($value == "Average Feedback" && Auth::user()->role == "Admin"){
-                        $data[$count][3] = $opportunity->averagePlacementStatusFeedbackScore();
+                        $data[$count][2] = $opportunity->averagePlacementStatusFeedbackScore();
                     } else {
                         $data[$count][$key] = 0;
                     }                
