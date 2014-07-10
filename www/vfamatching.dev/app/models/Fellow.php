@@ -104,7 +104,7 @@ class Fellow extends BaseModel {
                 $query->where('fellows.created_at', '>', DB::raw('DATE_SUB(NOW(),INTERVAL 1 YEAR)'))//added this year
                 ->orWhere('fellows.isPublished', '=', true);//or is published
             })
-            ->groupBy('fellows.id')
+            // ->groupBy('fellows.id')
             // ->having('fellows.created_at', '>', 'DATE_SUB(NOW(),INTERVAL 1 YEAR)')//added this year
             // ->having('fellows.isPublished', '=', true)//or is published
             ->count();
