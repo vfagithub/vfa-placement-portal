@@ -344,6 +344,10 @@ table tr th:hover {
     display: inline;
 }
 
+.table-responsive {
+    overflow-x: scroll;
+}
+
 @media (min-width: 992px){ /*Laptop and Desktop*/
     #highlights {
         margin-top: 20px;
