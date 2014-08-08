@@ -1,7 +1,7 @@
 class php {
 
     exec { 'add_repo':
-        command => '/usr/bin/add-apt-repository ppa:ondrej/php5 && /usr/bin/add-apt-repository ppa:ondrej/systemd'
+        command => '/usr/bin/add-apt-repository ppa:ondrej/php5'
     }
 
     exec { 'update_repo':
