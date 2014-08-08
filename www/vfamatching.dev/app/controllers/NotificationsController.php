@@ -1,6 +1,6 @@
 <?php
 
-class UsersController extends BaseController {
+class NotificationsController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
