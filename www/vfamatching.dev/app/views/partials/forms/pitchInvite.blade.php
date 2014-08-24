@@ -2,6 +2,7 @@
 {{-- TODO: If the current user is a hiring manager whose company's open opportunities have not all been pitched by $fellow, then display a select box filled with the unpitched opportunities and a button to submit a pitch invite. --}}
 <?php $unpitchedOpportunities = array("" => ""); ?>
 @if(Auth::user()->role == "Hiring Manager")
+	
 	@foreach(Auth::user()->profile->company->opportunities()->where('isPublished', '=', true)->get() as $opportunity)
 		@if((!PitchInvite::hasPitchInvite($fellow, $opportunity)) && (!Pitch::hasPitch($fellow, $opportunity)))
 			<?php $unpitchedOpportunities[$opportunity->id] = $opportunity->title; ?>
@@ -23,4 +24,5 @@
 		    </fieldset>
 		{{ Form::close() }}
 	@endif
+	
 @endif

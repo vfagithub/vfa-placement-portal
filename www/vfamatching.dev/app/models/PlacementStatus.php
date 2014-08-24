@@ -95,7 +95,7 @@ class PlacementStatus extends BaseModel {
                 ->where('isRecent', '=', true)
                 ->first();
         } else {
-            throw new Exception('This fellow does not have a Placemen Status with this opportunity');
+            throw new Exception('This fellow does not have a Placement Status with this opportunity');
         }
     }
 
@@ -147,7 +147,7 @@ class PlacementStatus extends BaseModel {
 
     public static function generateReportData($limit)
     {
-        $columnHeadings = array('Fellow', 'Opportunity', 'Company', 'Status', 'Created');
+        $columnHeadings = array('Fellow', 'Opportunity', 'Company', 'Status', 'Created by User', 'Score', 'Feedback', 'Created');
         $data = array();
         $data[0] = $columnHeadings;
 
@@ -168,8 +168,14 @@ class PlacementStatus extends BaseModel {
                     $data[$count][2] = '<a href="' . URL::to('companies/' . $company->id) . '">' . $company->name . '</a>';
                 } elseif($value == "Status"){
                     $data[$count][3] = $placementStatus->status;
+                } elseif($value == "Created by User"){
+                	$data[$count][4] = $placementStatus->fromRole;
+                } elseif($value == "Score"){
+                	$data[$count][5] = $placementStatus->score;
+                } elseif($value == "Feedback"){
+                	$data[$count][6] = $placementStatus->message;
                 } elseif($value == "Created"){
-                    $data[$count][4] = $placementStatus->created_at;
+                    $data[$count][7] = $placementStatus->created_at;
                 }               
             }
             $count += 1;
