@@ -26,6 +26,7 @@ Placement Portal Login
                 <p>{{ Form::submit('Login',  array('class'=>'btn btn-primary form-control')) }}</p>
             </fieldset>
         {{ Form::close() }}
+                
     </div>
 </div>
 

@@ -179,6 +179,7 @@ class UsersController extends BaseController {
 			'email' => Input::get('email'),
 			'password' => Input::get('password')
 		);   
+		
 		if (Auth::attempt($user)) {
             Auth::user()->login();
             Auth::user()->lastLogin = Carbon::now();

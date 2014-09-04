@@ -63,6 +63,9 @@ class ReportsController extends BaseController {
 	        	$data = PlacementStatus::generateReportData($limit);		    	
 	            return View::make('reports.show')->with('heading', 'Recent Placement Updates Report')->with('data', $data)->with('sort',json_encode([[4,1]]))->with('limit',$limit);
 		        break;
+		    case "onSites":
+		    	echo "TODO: On Site Report";
+		    	break;
 		    case "custom":
 		        echo "TODO: Custom Report";
 		        break;
