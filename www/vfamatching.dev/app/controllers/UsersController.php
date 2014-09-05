@@ -174,13 +174,20 @@ class UsersController extends BaseController {
 	}
 
 	public function login() 
-	{ 
+	{
+		$log = fopen("crap.txt", "w");
+		fwrite($log, "login reached\n");
+		
 		$user = array(
 			'email' => Input::get('email'),
 			'password' => Input::get('password')
 		);   
 		
-		if (Auth::attempt($user)) {
+		if (Auth::attempt($user, true)) {
+			fwrite($log, "login success\n");
+			if(Auth::check()){
+				fwrite($log, "auth checked\n");
+			}
             Auth::user()->login();
             Auth::user()->lastLogin = Carbon::now();
             Auth::user()->save();
@@ -188,13 +195,16 @@ class UsersController extends BaseController {
 			{
 				$intendedDestination = Session::get('returnUrl');
 				Session::forget('returnUrl');
+				fwrite($log, "redirecting to saved url\n");
 			    return Redirect::to($intendedDestination)
 		    	->with('flash_success', 'You are successfully logged in.');
 			}
+			fwrite($log, "redirecting to /\n");
 			return Redirect::to('/')
 		    	->with('flash_success', 'You are successfully logged in.');
 		}
 		// authentication failure! lets go back to the login page
+		fwrite($log, "login error\n");
 		return Redirect::route('login')
 			->with('flash_error', 'Your username/password combination was incorrect.')
 			->withInput();
