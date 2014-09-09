@@ -69,12 +69,17 @@ class ReportsController extends BaseController {
 		    	}
 		    	$limit = Input::has('limit') ? Input::get('limit') : 20;
 	        	$data = PlacementStatus::generateReportDataSiteVisit($limit);	
-	        	// TODO: make appropriate	    	
 	            return View::make('reports.show')->with('heading', 'Upcoming Site Visit Report')
 	            	->with('data', $data)->with('sort',json_encode([[4,1]]))->with('limit',$limit);
 		        break;
-		    case "custom":
-		        echo "TODO: Custom Report";
+		    case "phoneInterviews":
+		        if(Auth::user()->role != "Admin"){
+		    		return View::make('404')->with('error', 'Insufficient privileges! Admins only.');
+		    	}
+		    	$limit = Input::has('limit') ? Input::get('limit') : 20;
+	        	$data = PlacementStatus::generateReportPhoneInterview($limit);	
+	            return View::make('reports.show')->with('heading', 'Upcoming Phone Interview Report')
+	            	->with('data', $data)->with('sort',json_encode([[4,1]]))->with('limit',$limit);
 		        break;
 		    default:
 		       return View::make('404')->with('error', 'Invalid Report type!');
