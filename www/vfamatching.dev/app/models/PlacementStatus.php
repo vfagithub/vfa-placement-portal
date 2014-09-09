@@ -191,8 +191,10 @@ class PlacementStatus extends BaseModel {
         $data = array();
         $data[0] = $columnHeadings;
 
-        // $recentPlacementStatuses = PlacementStatus::where('isRecent','=',true)->orderBy('created_at', 'DESC')->take($limit)->get();
-		$recentPlacementStatuses = PlacementStatus::where('status', '=', 'On-site Interview Pending')->where(‘eventDate’, ‘>=’, getTimestamp())->orderBy('eventDate', 'ASC')->take($limit)->get();         
+        // $recentPlacementStatuses = PlacementStatus::where('isRecent','=',true)
+        	// ->orderBy('created_at', 'DESC')->take($limit)->get();
+		$recentPlacementStatuses = PlacementStatus::where('status', '=', 'On-site Interview Pending')
+			->where(‘eventDate’, ‘>=’, getTimestamp())->orderBy('eventDate', 'ASC')->take($limit)->get();         
 		$count = 1;
         foreach($recentPlacementStatuses as $placementStatus){
             $data[$count] = array();

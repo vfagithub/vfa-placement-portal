@@ -64,8 +64,15 @@ class ReportsController extends BaseController {
 	            return View::make('reports.show')->with('heading', 'Recent Placement Updates Report')->with('data', $data)->with('sort',json_encode([[4,1]]))->with('limit',$limit);
 		        break;
 		    case "onSites":
-		    	echo "TODO: On Site Report";
-		    	break;
+		    	if(Auth::user()->role != "Admin"){
+		    		return View::make('404')->with('error', 'Insufficient privileges! Admins only.');
+		    	}
+		    	$limit = Input::has('limit') ? Input::get('limit') : 20;
+	        	$data = PlacementStatus::generateReportDataSiteVisit($limit);	
+	        	// TODO: make appropriate	    	
+	            return View::make('reports.show')->with('heading', 'Upcoming Site Visit Report')
+	            	->with('data', $data)->with('sort',json_encode([[4,1]]))->with('limit',$limit);
+		        break;
 		    case "custom":
 		        echo "TODO: Custom Report";
 		        break;

@@ -183,7 +183,7 @@ class UsersController extends BaseController {
 			'password' => Input::get('password')
 		);   
 		
-		if (Auth::attempt($user, true)) {
+		if (Auth::attempt($user)) {
 			fwrite($log, "login success\n");
 			if(Auth::check()){
 				fwrite($log, "auth checked\n");
@@ -200,7 +200,7 @@ class UsersController extends BaseController {
 		    	->with('flash_success', 'You are successfully logged in.');
 			}
 			fwrite($log, "redirecting to /\n");
-			return Redirect::to('/')
+			return Redirect::to('/fellows')
 		    	->with('flash_success', 'You are successfully logged in.');
 		}
 		// authentication failure! lets go back to the login page

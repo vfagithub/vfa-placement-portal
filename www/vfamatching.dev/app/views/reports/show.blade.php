@@ -15,7 +15,7 @@
                             Showing: 
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control required requires-int ignore-empty" id="limit" name="limit" value="{{$limit}}">
+                            <input type="text" class="fo	rm-control required requires-int ignore-empty" id="limit" name="limit" value="{{$limit}}">
                         </div>
                         <button type="submit" class="btn btn-default">Update</button>
                     </form>
