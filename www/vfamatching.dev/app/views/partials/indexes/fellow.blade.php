@@ -22,6 +22,7 @@
                         <div class="col-md-4"><strong>School: </strong>{{ $fellow->school }}</div>
                         <div class="col-md-4"><strong>Major: </strong>{{ $fellow->degree }} in {{ $fellow->major }}</div>
                         <div class="col-md-4"><strong>Hometown: </strong>{{ $fellow->hometown }}</div>
+                        <div class="col-md-4"><a class="btn btn-primary form-control" href="{{ $fellow->resumePath }}" target="_blank"><i class="fa fa-cloud-download"></i> View Résumé</a></div>
                     </div>
                 </div>
             </div>
