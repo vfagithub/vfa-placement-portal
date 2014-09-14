@@ -27,6 +27,16 @@ Route::post('password/reset', array(
   'as' => 'password.request'
 ));
 
+Route::get('password/reset/{token}', array(
+  'uses' => 'PasswordController@reset',
+  'as' => 'password.reset'
+));
+
+Route::post('password/reset/{token}', array(
+  'uses' => 'PasswordController@update',
+  'as' => 'password.update'
+));
+
 Route::group(array('before' => 'auth'), function()
 {
     /* These routes are available to users without profiles */

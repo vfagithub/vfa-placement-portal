@@ -21,6 +21,7 @@ Placement Portal Login
                     {{ Form::label('password', 'Password') }}<br/>
                     {{ Form::password('password', array('class'=>'form-control required')) }}
                 </div>
+                <a href = {{URL:to('password/reset' }}></a>
 
                 <!-- submit button -->
                 <p>{{ Form::submit('Login',  array('class'=>'btn btn-primary form-control')) }}</p>
