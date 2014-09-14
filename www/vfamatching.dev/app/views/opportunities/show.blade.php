@@ -42,6 +42,26 @@
         </div>
     </div>
 
+	@if(Auth::user()->role == "Admin" || Auth::user()->role == "Admin")
+	{{-- Display Approved Pitches --}}
+	 @if(Pitch::where("opportunity_id","=",$opportunity->id)
+	 ->where('status','=','Under Review')->where("hasAdminApproval","=",false)->count())
+                <div class="row" id="pending-pitches">
+                    <div class="col-xs-12">
+                        <h3>Pitches pending Admin approval:</h3>
+                        @foreach(Pitch::where("opportunity_id","=",$opportunity->id)
+                        ->where('status','=','Under Review')->where("hasAdminApproval","=",false)->get() as $pitch)
+                            @include('partials.indexes.pitch', array('pitch' => $pitch))
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+	
+	@if(Pitch::where("opportunity_id", "=", $opportunity->id)
+	->where('status'
+	
+	@endif
+	
     @if(Auth::user()->role == "Admin")
         {{-- Display average feedback --}}
         <div class="row">
