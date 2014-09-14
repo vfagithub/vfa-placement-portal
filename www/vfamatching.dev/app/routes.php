@@ -17,6 +17,16 @@ Route::get('users/password-reset/{hash}', array('uses' => 'UsersController@newPa
 Route::post('users/password-reset', array('uses' => 'UsersController@updatePassword'));
 Route::get('logout', array('uses' => 'UsersController@logout', 'as' => 'logout'))->before('auth');
 
+Route::get('password/reset', array(
+  'uses' => 'PasswordController@remind',
+  'as' => 'password.remind'
+));
+
+Route::post('password/reset', array(
+  'uses' => 'PasswordController@request',
+  'as' => 'password.request'
+));
+
 Route::group(array('before' => 'auth'), function()
 {
     /* These routes are available to users without profiles */
