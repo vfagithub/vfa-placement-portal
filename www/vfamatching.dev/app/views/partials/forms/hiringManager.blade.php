@@ -21,6 +21,11 @@
                 {{ Form::label('phoneNumber', 'What the best number to reach you at?') }}
                 {{ Form::text('phoneNumber', Input::old('email') ? Input::old('email') : $hiringManager->phoneNumber, array('class'=>'form-control required requires-phone', 'placeholder' => '(646) 736-6460')) }}
             </div>
+           	{{-- Now for the email opt out --}}
+            <div class="form-group @if($validationErrors){{ $validationErrors->has('emailOptOut') ? "has-error" : ""}}@endif">
+            	{{ Form::label(‘emailOptOut’, ‘Opt out of email notifications?’) }}
+				{{ Form::checkbox(‘emailOptOut’, ‘true’) }}
+            </div>
             <div class="form-group">
                 {{ Form::submit('Save Profile', array('class'=>'btn btn-primary')) }}
             </div>
@@ -48,6 +53,10 @@
                 {{ Form::label('phoneNumber', 'What the best number to reach you at?') }}
                 {{ Form::text('phoneNumber', Input::old('phoneNumber'), array('class'=>'form-control required requires-phone', 'placeholder' => '(646) 736-6460')) }}
             </div>
+            {{-- Now for the email opt out --}}
+            <div class="form-group @if($validationErrors){{ $validationErrors->has('emailOptOut') ? "has-error" : ""}}@endif">
+            	{{ Form::label(‘emailOptOut’, ‘Opt out of email notifications?’) }}
+				{{ Form::checkbox(‘emailOptOut’, ‘true’) }}
             TODO: Add controls for selecting the Hiring Manager's Company!
             <div class="form-group">
                 {{ Form::submit('Save Profile', array('class'=>'btn btn-primary')) }}
