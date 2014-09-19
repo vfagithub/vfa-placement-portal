@@ -1,0 +1,11 @@
+{{ Form::open(array('route' => 'pitches.store', 'class'=>'pitch-form')) }}
+    <fieldset>
+        {{ Form::hidden('fellow_id', $fellow_id) }}
+        {{ Form::hidden('opportunity_id', $opportunity_id) }}
+        <div class="form-group">
+            {{ Form::label('body', 'Sage advice from Jason and Liz') }}
+            {{ Form::textarea('body', null) }}
+        </div>
+    </fieldset>
+    Your message will be sent to {{ $fellow->firstName . ' ' . $fellow->lastName }}.
+{{ Form::close() }}

@@ -33,6 +33,8 @@ return array(
 	
 	'expire_on_close' => false,
 
+	'expire_on_close' => false,
+
 	/*
 	|--------------------------------------------------------------------------
 	| Session File Location

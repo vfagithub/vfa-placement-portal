@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration {
 			$table->string('firstName');
 			$table->string('lastName');
 			$table->timestamps();
+			$table->string('remember_token', 100)->nullable();
 		});
 	}
 
