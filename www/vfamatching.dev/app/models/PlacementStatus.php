@@ -225,7 +225,7 @@ class PlacementStatus extends BaseModel {
     
     public static function generateReportDataPhoneInterview($limit)
     {    	
-    	$columnHeadings = array('Fellow', 'Opportunity', 'Company', 'Status' 'Score', 'Feedback', 'Date');
+    	$columnHeadings = array('Fellow', 'Opportunity', 'Company', 'Status', 'Score', 'Feedback', 'Date');
         $data = array();
         $data[0] = $columnHeadings;
 
