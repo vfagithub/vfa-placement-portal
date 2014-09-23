@@ -44,7 +44,8 @@
 
 	@if(Auth::user()->role == "Admin" || Auth::user()->role == "Hiring Manager")
 	{{-- Display Approved Pitches for Admins and Hiring Managers --}}
-	 @if(Pitch::where("opportunity_id","=",$opportunity->id)
+	 @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Approved')
+            	->where("hasAdminApproval","=",true)->count())
 	 ->where('status','=','Approved')->count())
                 <div class="row" id="approved-pitches">
                     <div class="col-xs-12">
@@ -114,7 +115,8 @@
         {{-- Display a Admin waitlisted pitches to admins --}}
         <div class="container">
             {{-- Pending Admin approval --}}
-            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')->where("hasAdminApproval","=",false)->count())
+            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')
+            	->where("hasAdminApproval","=",false)->count())
                 <div class="row" id="pending-pitches">
                     <div class="col-xs-12">
                         <h3>Pitches pending Admin approval:</h3>
