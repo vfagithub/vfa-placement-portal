@@ -42,6 +42,36 @@
         </div>
     </div>
 
+	@if(Auth::user()->role == "Admin" || Auth::user()->role == "Hiring Manager")
+	{{-- Display Approved Pitches for Admins and Hiring Managers --}}
+	 @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Approved')
+            	->where("hasAdminApproval","=",true)->count())
+	 ->where('status','=','Approved')->count())
+                <div class="row" id="approved-pitches">
+                    <div class="col-xs-12">
+                        <h3>Approved Pitches:</h3>
+                        @foreach(Pitch::where("opportunity_id","=",$opportunity->id)
+                        ->where('status','=','Approved')->get() as $pitch)
+                            @include('partials.indexes.pitch', array('pitch' => $pitch))
+                        @endforeach
+                    </div>
+                </div>
+    	@endif
+    @endif
+    
+    @if(Auth::user()->role == "Fellow")
+    {{-- Display Approved Pitches for Fellows --}}
+    	 @if(Pitch::hasPitch(Auth::user()->profile, $opportunity))
+    	 <div class="panel-heading">
+    	 <strong><h3>Your Pitch</h3><strong>
+    	 <em>{{ Carbon::createFromFormat('Y-m-d H:i:s', Pitch::getPitch(Auth::user()->profile, $opportunity)->created_at)
+    	 ->diffForHumans() }}</em>
+    	 </div>
+    	 <div class="panel-body">
+    	 	<p>{{ Parser::linkUrlsInText(Pitch::getPitch(Auth:user()->profile, $opportunity)->body) }}</p>
+    	 </div>
+    @endif
+	
     @if(Auth::user()->role == "Admin")
         {{-- Display average feedback --}}
         <div class="row">
@@ -85,7 +115,8 @@
         {{-- Display a Admin waitlisted pitches to admins --}}
         <div class="container">
             {{-- Pending Admin approval --}}
-            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')->where("hasAdminApproval","=",false)->count())
+            @if(Pitch::where("opportunity_id","=",$opportunity->id)->where('status','=','Under Review')
+            	->where("hasAdminApproval","=",false)->count())
                 <div class="row" id="pending-pitches">
                     <div class="col-xs-12">
                         <h3>Pitches pending Admin approval:</h3>
